@@ -1,0 +1,36 @@
+.container .intro {
+  width: 100%;
+}
+.container .intro .intro-box {
+  width: 100%;
+  position: relative;
+  height: 10rem;
+  font-size: 1rem;
+}
+.container .intro .intro-box .text-box {
+  position: absolute;
+  top: 30%;
+  z-index: 10;
+}
+.container .intro .intro-box .text-box p:first-child {
+  margin-left: 2rem;
+}
+.container .intro .intro-box .text-box-right {
+  right: 2rem;
+}
+.container .intro .intro-box .text-box-left {
+  left: 2rem;
+}
+.container .intro .intro-box .img-box {
+  position: absolute;
+  z-index: 5;
+}
+.container .intro .intro-box .img-box img {
+  height: 10rem;
+}
+.container .intro .intro-box .img-box-left {
+  left: 0;
+}
+.container .intro .intro-box .img-box-right {
+  right: 0;
+}

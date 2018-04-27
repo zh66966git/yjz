@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓶子</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/intro.css">
+</head>
+<body>
+<div class="header">
+    <div class="router">
+        <div class="router-left">
+            <a href="index.html">
+                新诺UV彩瓶
+                <span class="little-name">原金河彩瓶</span>
+            </a>
+        </div>
+        <div class="router-right">
+            <ul>
+                <li>
+                    <a href="intro.html">
+                        企业简介
+                    </a>
+                </li>
+                <li>
+                    <a href="showing.html">
+                        精品展示
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        联系我们
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="img-banner">
+        <div class="intro-text">
+            <h1>新诺UV彩瓶</h1>
+            <p>质量第一，信誉至上，客户为本，共谋发展。品诺彩瓶公司全体员工真诚欢迎各界朋友光临选购您满意的产品！</p>
+        </div>
+    </div>
+    <div class="intro-text-box">
+        <h1>公司简介</h1>
+        <p>
+            山东省郓城县金河玻璃集团下设金河玻璃彩瓶、烤花等下属企业，属于郓城县重点民营企业，全国优秀包装企业，省“重合同，守信用”企业。
+            郓城金河玻璃彩瓶座落在水浒故里——郓城金河西畔，西邻京九铁路南邻济广高速、日东高速、地理位置优越，交通十分便利。
+            金河玻璃彩瓶集团占地共120余亩，拥有雄厚的固定资产和流动资金，集团近几年发展迅速，生产高低档精白、高白、普白等2000余种玻璃产品。彩瓶公司现有韩国先进的全自动静电喷枪、双喷室喷涂、烤花生产线及自动酸洗生产线。主要产品有亮光、亚光、毛绒、水木纹、幻彩等高、中、低档彩色喷涂瓶及各种玻璃陶瓷高温烤花系列。
+            “诚信第一、质量第一、客户满意第一”是公司宗旨。本公司的酒瓶喷涂、烤花能力在同行业中处于邻先地位，产品销往全国二十多个省、市地区并远销海外。本公司的科技创新产品爱到了全国各地的酒行业及新老客户的赞誉，凭借高质量的产品，专业的设计，良好信誉，优良的服务，赢得了广大客户的青睐。
+            　　总经理携全体员工热忱欢迎各界朋友光临惠顾洽谈合作，共谋发展。
+        </p>
+    </div>
+    <div id="map"></div>
+    <div id="panorama"></div>
+</div>
+<div class="footer">
+    <div class="footer-item">
+        <img src="img/index/lx1.png" alt="">
+        <p>职位：总经理</p>
+        <p>姓名：杨成新</p>
+    </div>
+    <div class="footer-item">
+        <img src="img/index/lx2.png" alt="">
+        <p>职位：销售总经理</p>
+        <p>姓名：杨景芝</p>
+    </div>
+    <div class="footer-item">
+        <img src="img/index/lx2.png" alt="">
+        <p>职位：销售经理</p>
+        <p>姓名：杨景海</p>
+    </div>
+</div>
+</body>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4k6ppnWuk0eG1ovHZhrgzQ8Y0MaxmDBw"></script>
+<script src="js/common.js"></script>
+<script>
+    var imgHeight= $(".img-banner").height();
+    console.log(imgHeight)
+    $(".intro-text-box").css({ "margin-top": imgHeight+'px'});
+</script>
+<script>
+    var panorama = new BMap.Panorama('panorama');
+    panorama.setPosition(new BMap.Point(115.930711,35.592086)); //根据经纬度坐标展示全景图
+    panorama.setPov({heading: -40, pitch: 6});
+
+    panorama.addEventListener('position_changed', function(e){ //全景图位置改变后，普通地图中心点也随之改变
+        var pos = panorama.getPosition();
+        map.setCenter(new BMap.Point(pos.lng, pos.lat));
+        marker.setPosition(pos);
+    });
+    var mapOption = {
+        mapType: BMAP_NORMAL_MAP,
+        maxZoom: 15,
+        drawMargin:0,
+        enableFulltimeSpotClick: true,
+        enableHighResolution:true
+    }
+    var map = new BMap.Map("map", mapOption);
+    var testpoint = new BMap.Point(115.930711,35.592086);
+    map.centerAndZoom(testpoint, 15);
+    var marker=new BMap.Marker(testpoint);
+    marker.enableDragging();
+    map.addOverlay(marker);
+    marker.addEventListener('dragend',function(e){
+        panorama.setPosition(e.point); //拖动marker后，全景图位置也随着改变
+        panorama.setPov({heading: -40, pitch: 6});}
+    );
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    /*var map = new BMap.Map("map");          // 创建地图实例
+    var point = new BMap.Point(115.930711,35.592086);  // 创建点坐标
+    map.centerAndZoom(point, 15);
+    var marker = new BMap.Marker(point);        // 创建标注
+    map.addOverlay(marker);
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放*/
+</script>
+</html>

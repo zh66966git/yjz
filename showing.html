@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓶子</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/showing.css">
+    <link rel="stylesheet" href="css/baguetteBox.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.lazyload.min.js"></script>
+    <script src="js/baguetteBox.js"></script>
+    <script src="js/echo.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="router">
+        <div class="router-left">
+            <a href="index.html">
+                新诺UV彩瓶
+                <span class="little-name">原金河彩瓶</span>
+            </a>
+        </div>
+        <div class="router-right">
+            <ul>
+                <li>
+                    <a href="intro.html">
+                        企业简介
+                    </a>
+                </li>
+                <li>
+                    <a href="showing.html">
+                        精品展示
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        联系我们
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="img-banner">
+    <div class="intro-text">
+        <h1>新诺UV彩瓶</h1>
+        <p>    本公司现有高低档精白、高白、普白等2000余种玻璃产品，与多家知名酒厂建立长期合作关系</p>
+    </div>
+</div>
+<div class="container">
+    <div class="classify">
+        <ul>
+            <li class="router-li">
+                新产品
+            </li>
+            <li class="router-li">
+                彩瓶系列
+            </li>
+            <li class="router-li">
+                晶白瓶系列
+            </li>
+            <li class="router-li">
+                高白瓶系列
+            </li>
+            <li class="router-li">
+                洋酒系列
+            </li>
+            <li class="router-li">
+                茶油系列
+            </li>
+            <li class="router-li">
+                125ml小瓶系列
+            </li>
+            <li class="router-li">
+                大容量瓶系列
+            </li>
+            <li class="router-li">
+                乳白瓶系列
+            </li>
+        </ul>
+    </div>
+    <section class = "gallery"></section>
+    <div id="goTopBtn"><span class="icon_top"></span></div>
+</div>
+<div class="footer">
+    <div class="footer-item">
+        <img src="img/index/lx1.png" alt="">
+        <p>职位：总经理</p>
+        <p>姓名：杨成新</p>
+    </div>
+    <div class="footer-item">
+        <img src="img/index/lx2.png" alt="">
+        <p>职位：销售总经理</p>
+        <p>姓名：杨景芝</p>
+    </div>
+    <div class="footer-item">
+        <img src="img/index/lx2.png" alt="">
+        <p>职位：销售经理</p>
+        <p>姓名：杨景海</p>
+    </div>
+</div>
+</body>
+<script src="js/common.js"></script>
+<script>
+    var imgHeight= $(".img-banner").height();
+    console.log(imgHeight)
+    $(".container").css({ "margin-top": imgHeight+'px'});
+</script>
+<script>
+    $('figcaption').css({'font-size' : '0.5rem'});
+    $('.router-li').hover(
+        function () {
+            $(this).css({ 'background': "url(img/nav2.jpg)  center no-repeat" }).siblings().css({ 'background': "url(img/nav1.jpg)  center no-repeat" });
+        }
+    ).mouseout(function(){
+        console.log('aaa')
+        $(this).css({ 'background': "url(img/nav1.jpg)  center no-repeat" });
+    });
+    var dtd = $.Deferred();
+    var wait=function (dtd) {
+        var task=function () {
+            var htmlAllText='';
+            for(var i = 0 ;i<=144 ;i++){
+                var htmlText=`<div>
+        <a href="img/bottle/${i}.jpg" data-caption=${i}>
+            <img class="lazy" src="img/timg.jpg" data-echo="img/bottle/${i}.jpg">
+            </a>
+            </div>`
+                htmlAllText+=htmlText;
+            }
+            $(".gallery").html(htmlAllText);
+            dtd.resolve();
+        }
+        return task()
+    }
+    $.when(wait(dtd)).done(function(){
+        Echo.init({
+            offset: 100,//离可视区域多少像素的图片可以被加载
+            throttle: 0 //图片延时多少毫秒加载
+        });
+        })
+</script>
+<script>
+    baguetteBox.run('.gallery', {
+        // 配置参数
+        buttons:Boolean,//是否显示导航按钮。
+        noScrollbars:true,//是否在显示时隐藏滚动条。
+        titleTag:true,//是否使用图片上的title属性作为图片标题
+        async:false,//是否异步加载文件。
+
+        afterShow:function(){//显示遮罩层之后的回调函数。
+            $(".pressing").fadeIn();
+        },
+        afterHide:function(){//隐藏遮罩层之后的回调函数。
+            $(".pressing").fadeOut();
+        }
+    });
+
+    $(function(){
+
+        //返回顶部
+        $(window).scroll(function(){
+            var sc=$(window).scrollTop();
+            var rwidth=$(window).width()
+            if(sc>500){
+                $("#goTopBtn").css("display","block");
+                $("#goTopBtn").css("left",(rwidth-106)+"px")
+            }else{
+                $("#goTopBtn").css("display","none");
+            }
+        })
+        $("#goTopBtn").click(function(){
+            var sc=$(window).scrollTop();
+            $('body,html').animate({scrollTop:0},100);
+        })
+
+        $(".allnews").click(function () {
+            $("#allcon").css("height", "auto");
+            $(this).hide(1000);
+        });
+    })
+
+</script>
+<script type="text/javascript" charset="utf-8">
+    // $(function() {
+    //     $("img.lazy").lazyload({effect: "fadeIn"});
+    // });
+    // $("img").lazyload({effect: "fadeIn"});
+</script>
+</html>
